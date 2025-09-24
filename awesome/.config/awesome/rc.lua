@@ -17,6 +17,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+require("config.screenshot")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -74,12 +75,12 @@ require("config.autostart")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-	awful.layout.suit.floating,
+	awful.layout.suit.fair,
 	awful.layout.suit.tile,
+	awful.layout.suit.floating,
 	awful.layout.suit.tile.left,
 	awful.layout.suit.tile.bottom,
 	awful.layout.suit.tile.top,
-	awful.layout.suit.fair,
 	awful.layout.suit.fair.horizontal,
 	awful.layout.suit.spiral,
 	awful.layout.suit.spiral.dwindle,
@@ -131,7 +132,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock(" %a %b %d, %I:%M ")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -369,7 +370,23 @@ globalkeys = gears.table.join(
 	-- Menubar
 	awful.key({ modkey }, "p", function()
 		menubar.show()
-	end, { description = "show the menubar", group = "launcher" })
+	end, { description = "show the menubar", group = "launcher" }),
+
+	-- Screenshot
+	awful.key(
+		{ modkey },
+		"Print",
+		scrot_full,
+		{ description = "Take a screenshot of entire screen", group = "screenshot" }
+	),
+	awful.key({}, "Print", scrot_selection, { description = "Take a screenshot of selection", group = "screenshot" }),
+
+	awful.key(
+		{ "Control" },
+		"Print",
+		scrot_selection_and_edit,
+		{ description = "Take a screenshot of selection and edit", group = "screenshot" }
+	)
 )
 
 clientkeys = gears.table.join(

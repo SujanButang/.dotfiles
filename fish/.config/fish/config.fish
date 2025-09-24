@@ -21,7 +21,7 @@ alias lt "exa -lh --icons --no-user --git -T -L 4 --ignore-glob='.git|node_modul
 alias gd "git diff"
 alias gs "git status"
 
-set PATH "$PATH":"$HOME/go/bin"
+set PATH "$PATH":"/usr/local/go/bin"
 set PATH "$PATH":"$HOME/.local/bin"
 set PATH "$PATH":"$HOME/.local/scripts"
 
@@ -36,3 +36,7 @@ export VISUAL="nvim"
 export EDITOR="nvim"
 
 starship init fish | source
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
